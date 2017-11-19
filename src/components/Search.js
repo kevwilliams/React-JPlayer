@@ -1,15 +1,17 @@
 import React from 'react';
+import { Container, Input } from 'semantic-ui-react';
 
 const Search = ({ value, onChange, children }) =>
-  <div style={{ padding:'10px'}}>
-    <form>
-        {children} <input 
-          type="text"
-          style={{ width:'80%'}}
-          value={value}
-          onChange={onChange}
-        />
-      </form>
+  <div>
+  	<Container>
+        {children} 
+        <Input
+        	focus 
+        	placeholder="Search..." 
+        	icon='search'
+        	onChange={onChange}
+    	/>
+      </Container>	
   </div>
 
 export default Search;

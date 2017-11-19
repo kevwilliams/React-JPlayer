@@ -3,17 +3,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import moment from 'moment';
 
 import { URL } from '../constants';
+import { Grid, Header } from 'semantic-ui-react';
 
 import {
-  HeaderTwo,
-  MainPanel,
   Search,
-  Sidebar,
   SongList,
   Song
 } from '../components';
-
-import '../App.css';
 
 class App extends Component {
 
@@ -81,36 +77,42 @@ class App extends Component {
 
     return (
       <Router>
-        <div className="page">
-          <Sidebar>
-            <div className="interactions">
-              <Search 
-                value={searchTerm}
-                onChange={this.onSearchChange}  
-              >
-                Search
-              </Search>
-            </div>
-            { songs && 
-              <SongList 
-                list={songs}
-                pattern={searchTerm}
-                onDismiss={this.onDismiss}
-                onPlay={this.onPlay}
-                onSongChange={this.handleSongChange}
-              />
-            }
-          </Sidebar>
-          <MainPanel>
-            <Route path="/" exact={true} render={() => (
-              <HeaderTwo message={msg} />
-            )}/>
-            {songs && (
-              <Route path="/song/:songId" render={({ match }) => (
-                <Song song={songs.find(s => s.arid === match.params.songId)} />
+        <div>
+        <Grid doubling container style={{ padding:'5px' }}>
+          <Grid.Row>
+            <Grid.Column>
+              <Route path="/" exact={true} render={() => (
+                <Header as='h2'>{msg}</Header>
               )}/>
-            )}
-          </MainPanel>
+              {songs && (
+                <Route path="/song/:songId" render={({ match }) => (
+                  <Song song={songs.find(s => s.arid === match.params.songId)} />
+                )}/>
+              )}
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+                <Search 
+                  value={searchTerm}
+                  onChange={this.onSearchChange}  
+                />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              { songs && 
+                <SongList 
+                  list={songs}
+                  pattern={searchTerm}
+                  onDismiss={this.onDismiss}
+                  onPlay={this.onPlay}
+                  onSongChange={this.handleSongChange}
+                />
+              }
+            </Grid.Column>
+          </Grid.Row>
+        </Grid> 
         </div>
       </Router>
     );
