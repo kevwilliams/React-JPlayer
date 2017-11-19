@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App has a valid snapshot 1`] = `null`;
+
+exports[`Button has a valid snapshot 1`] = `
+<button
+  className=""
+  onClick={undefined}
+  type="button"
+>
+  The Button
+</button>
+`;
