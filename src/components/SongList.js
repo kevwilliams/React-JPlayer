@@ -5,7 +5,7 @@ import { Button, Card, Icon } from 'semantic-ui-react';
 const isSearched = searchTerm => item =>
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-const SongList = ({ list, pattern, onDismiss, onPlay, onSongChange }) =>
+const SongList = ({ list, pattern, onDismiss, onPlay, onSongChange, current }) =>
   <div className="table">
       <Card.Group itemsPerRow={5} stackable>
     {list.filter(isSearched(pattern)).map(item => 
@@ -24,16 +24,21 @@ const SongList = ({ list, pattern, onDismiss, onPlay, onSongChange }) =>
           </Card.Content>
           <Card.Content extra>
             <Button.Group widths="two">
-              <Button basic animated='vertical'>
+              {current !== item.arid && <Button basic animated='vertical' onClick={() => onPlay(item)}>
                 <Button.Content hidden>Play</Button.Content>
                 <Button.Content visible>
-                  <Icon name='play'/>
+                  <Icon name='play' size="large"/>
                 </Button.Content>
-              </Button>
+              </Button>}
+              {current === item.arid && <Button basic animated='vertical' onClick={() => onPlay(item)}>
+                <Button.Content>
+                  <Icon size="large" name="volume up" />
+                </Button.Content>
+              </Button>}
               <Button animated onClick={() => onDismiss(item.arid)}>
                 <Button.Content hidden>Remove</Button.Content>
                 <Button.Content visible>
-                  <Icon name='eject'/>
+                  <Icon size="large" name='eject'/>
                 </Button.Content>
               </Button>
             </Button.Group>
