@@ -1,4 +1,4 @@
-import { FETCH_SONGS, SET_SONGS, PLAY_SONG, SET_VIDEO, FILTER_SONGS } from '../types/songs';
+import { FETCH_SONGS, SET_SONGS, PLAY_SONG, SET_VIDEO, FILTER_SONGS, REMOVE_SONG } from '../types/songs';
 
 const initState = {
 	songs: [],
@@ -17,6 +17,9 @@ export default ( state = initState, action) => {
 		return {...state, current: action.payload.song}
 		case SET_VIDEO:
 		return {...state, video: action.payload.video}
+		case REMOVE_SONG:
+		    const isNotId = item => item.arid !== action.payload.song;
+			return {...state, songs: state.songs.filter(isNotId)}
 		case FILTER_SONGS:
 		return {...state, filter: action.payload.search}
 		default :

@@ -1,8 +1,7 @@
-import { SET_SONGS, PLAY_SONG, SET_VIDEO, FILTER_SONGS } from '../types/songs';
-import { URL } from '../constants';
+import { SET_SONGS, PLAY_SONG, SET_VIDEO, FILTER_SONGS, REMOVE_SONG } from '../types/songs';
+import { URL, API_KEY } from '../constants';
 import moment from 'moment';
 import YTSearch from 'youtube-api-search';
-import { API_KEY } from '../constants';
 
 export const setSongs = (songs) => {
 	return dispatch => {
@@ -27,6 +26,17 @@ export const fetchSongs = () => {
 	}
 }
 
+export const removeSong = (songId) => {
+	return dispatch => {
+		dispatch({
+			type: REMOVE_SONG,
+			payload: {
+				song: songId
+			}
+		});
+	}
+}
+
 export const setVideo = (videoId) => {
 	return dispatch => {
 		dispatch({
@@ -39,7 +49,6 @@ export const setVideo = (videoId) => {
 }
 
 export const playSong = (song) => {
-		
 	return dispatch => {
 		const search = `${song.artists[0].name} ${song.title}`;
 		YTSearch({key: API_KEY, term: search}, (results) => {
@@ -54,7 +63,6 @@ export const playSong = (song) => {
 		})
 	}
 }
-
 
 export const filterSongs = (searchTerm) => {
 	return dispatch => {
